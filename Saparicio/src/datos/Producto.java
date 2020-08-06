@@ -42,61 +42,6 @@ public class Producto {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
 
     public Conexion getConexion() {
         return conexion;
@@ -252,7 +197,7 @@ public class Producto {
         // Tabla para mostrar lo obtenido de la consulta
         DefaultTableModel producto = new DefaultTableModel();
         producto.setColumnIdentifiers(new Object[]{
-            "id","codigo", "nombre", "descripcion", "estado", "precio", "stock"
+            "id","codigo", "nombre", "descripcion", "estado", "precio", "stock", "imagen"
         });
 
         // Abro y obtengo la conexion
@@ -267,7 +212,8 @@ public class Producto {
                 + "producto.descripcion,\n"
                 + "producto.estado,\n"
                 + "producto.precio,\n"
-                + "producto.stock\n"
+                + "producto.stock,\n"
+                + "producto.imagen\n"
                 + "FROM producto\n"
                 + "WHERE producto.id=?";
         // Los simbolos de interrogacion son para mandar parametros 
@@ -292,7 +238,8 @@ public class Producto {
                     rs.getString("descripcion"),
                     rs.getBoolean("estado"),
                     rs.getFloat("precio"),
-                    rs.getInt("stock")
+                    rs.getInt("stock"),
+                    rs.getString("imagen")
                 });
             }
         } catch (SQLException ex) {
@@ -354,6 +301,7 @@ public class Producto {
         }
         return productos;
     }
+    
     
     public DefaultTableModel estadisticaTopProductosMasVendidos() {
         // Tabla para mostrar lo obtenido de la consulta

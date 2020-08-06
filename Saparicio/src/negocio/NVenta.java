@@ -27,7 +27,12 @@ public class NVenta {
     public int registrarVenta(String total, String estado, String numComprobante, 
             int idCliente, int idUsuario, String detalleVenta) throws ParseException {
         
-        this.venta.setVenta(total, estado, numComprobante, idCliente, idUsuario);
+        this.venta.setVenta(total, 
+                            estado, 
+                            numComprobante, 
+                            idCliente, 
+                            idUsuario);
+        
         int idVenta = this.venta.registrarVenta();
         
         dventa.setIdVenta(idVenta);
@@ -42,7 +47,7 @@ public class NVenta {
 
     public DefaultTableModel mostrarVentaId(int id) {
         return this.venta.getVenta(id);
-    }    
+    }        
     public DefaultTableModel mostrarDetallesVentaId(int idVenta) {
         return this.dventa.getDetallesVentaId(idVenta);
     }

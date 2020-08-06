@@ -43,71 +43,7 @@ public class Proveedor {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public String getNumDocumento() {
-        return numDocumento;
-    }
-
-    public void setNumDocumento(String numDocumento) {
-        this.numDocumento = numDocumento;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getContacto() {
-        return contacto;
-    }
-
-    public void setContacto(String contacto) {
-        this.contacto = contacto;
-    }
-
-    public String getTelefonoContacto() {
-        return telefonoContacto;
-    }
-
-    public void setTelefonoContacto(String telefonoContacto) {
-        this.telefonoContacto = telefonoContacto;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-   
+     
 
     public Conexion getConexion() {
         return conexion;
@@ -207,7 +143,7 @@ public class Proveedor {
                 + "telefono = ? ,\n"
                 + "direccion = ? ,\n"
                 + "contacto = ? ,\n"
-                + "telefonoContacto = ? \n"
+                + "telefonoContacto = ? ,\n"
                 + "estado = ? \n"
                 + "WHERE proveedor.id = ?";
         try {
@@ -221,7 +157,7 @@ public class Proveedor {
             ps.setString(6, this.contacto);
             ps.setString(7, this.telefonoContacto);                        
             ps.setBoolean(8, this.estado);
-            ps.setInt(8, this.id);
+            ps.setInt(9, this.id);
             
             int rows = ps.executeUpdate();
 

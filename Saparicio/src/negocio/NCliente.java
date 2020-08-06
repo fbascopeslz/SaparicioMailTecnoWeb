@@ -7,6 +7,7 @@ package negocio;
 
 import datos.Cliente;
 import datos.Usuario;
+import java.sql.Date;
 import java.text.ParseException;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,18 +25,37 @@ public class NCliente {
 
     public int registrarCliente(String ci, String nombres, String paterno, 
             String materno, String fechaNac, String telefono, String email,
-            String direccion) throws ParseException {        
-        this.cliente.setCliente(ci, nombres, paterno, materno, fechaNac, 
-                telefono,  email, direccion, "true");
+            String direccion) {  
+        
+        this.cliente.setCliente(ci, 
+                                nombres, 
+                                paterno, 
+                                materno, 
+                                Date.valueOf(fechaNac), 
+                                Integer.parseInt(telefono),  
+                                email, 
+                                direccion, 
+                                Boolean.parseBoolean("true"));
+        
         return this.cliente.registrarCliente();
     }
 
     public void modificarCliente(int id, String ci, String nombres, String paterno, 
             String materno, String fechaNac, String telefono, String email,
-            String direccion, String estado) throws ParseException {
+            String direccion, String estado) {
+        
         this.cliente.setId(id);
-        this.cliente.setCliente(ci, nombres, paterno, materno, fechaNac, 
-                telefono, email, direccion, estado);
+        
+        this.cliente.setCliente(ci, 
+                                nombres, 
+                                paterno, 
+                                materno, 
+                                Date.valueOf(fechaNac), 
+                                Integer.parseInt(telefono), 
+                                email, 
+                                direccion, 
+                                Boolean.parseBoolean(estado));
+        
         this.cliente.modificarCliente();
     }
 

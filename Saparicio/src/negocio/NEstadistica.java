@@ -39,13 +39,18 @@ public class NEstadistica {
         return html;
     }
     
+    /*
     //Productos mas vendidos por mes (Grafica Barras => Mes y Producto vs Cantidad)
     public String estadisticasProductosMasVendidosMes(String annio) {
         return null;
     }
+    */
     
     //Productos mas vendidos en un dia (Grafica Barras => Producto vs Cantidad)
     public String estadisticasProductosMasVendidosDia(String fecha) {
+        
+        fecha = Utils.ddMMyyyyToyyyyMMddDate(fecha);
+        
         String html = "";
         DefaultTableModel dtm = producto.estadisticaTopProductosMasVendidosDia(fecha);
         html = Utils.dibujarGraficasHTMLBarras(dtm, "PRODUCTOS MAS VENDIDOS DEL DIA " + fecha, "Producto");
@@ -54,6 +59,10 @@ public class NEstadistica {
     
     //Productos mas vendidos en un rango de fechas (Grafica Donut => Producto vs Cantidad)
     public String estadisticasProductosMasVendidosRangoFechas(String fecha1, String fecha2) {
+        
+        fecha1 = Utils.ddMMyyyyToyyyyMMddDate(fecha1);
+        fecha2 = Utils.ddMMyyyyToyyyyMMddDate(fecha2);
+        
         String html = "";
         DefaultTableModel dtm = producto.estadisticaTopProductosMasVendidosRangoFechas(fecha1, fecha2);
         html = Utils.dibujarGraficasHTMLDonut(dtm, 

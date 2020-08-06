@@ -72,6 +72,7 @@ public class Token {
     private int nombre;
     private int atributo;
     private String toStr;
+    //private double numeroFlotante;
 
     public Token() {
     }

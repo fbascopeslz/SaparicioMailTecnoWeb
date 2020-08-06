@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
+import utils.Utils;
 
 /**
  *
@@ -82,18 +83,8 @@ public class Ingreso {
             // El segundo parametro de usa cuando se tienen tablas que generan llaves primarias
             // es bueno cuando nuestra bd tiene las primarias autoincrementables
             
-            //fecha y hora actual
-            Calendar fecha = Calendar.getInstance();
-            String dia = Integer.toString(fecha.get(Calendar.DATE));
-            String mes = Integer.toString(fecha.get(Calendar.MONTH) + 1);
-            String annio = Integer.toString(fecha.get(Calendar.YEAR));
-            
-            String hora = Integer.toString(fecha.get(Calendar.HOUR));
-            String minuto = Integer.toString(fecha.get(Calendar.MINUTE));
-            String segundo = Integer.toString(fecha.get(Calendar.SECOND));            
-            
-            ps.setDate(1, Date.valueOf(annio + "-" + mes + "-" + dia));                        
-            ps.setTime(2, Time.valueOf(hora + ":" + minuto + ":" + segundo));
+            ps.setDate(1, Date.valueOf(Utils.fechaActual()));                        
+            ps.setTime(2, Time.valueOf(Utils.horaActual()));
             
             ps.setFloat(3, this.totalCompra);
             ps.setString(4, this.tipoComprobante);
@@ -240,7 +231,8 @@ public class Ingreso {
                 + "CONCAT(TRIM(usuario.usuario)) AS usuario\n"                
                 + "FROM ingreso, proveedor, usuario\n"                
                 + "WHERE ingreso.idproveedor = proveedor.id and "
-                + "ingreso.idusuario = usuario.id";                                
+                + "ingreso.idusuario = usuario.id\n"
+                + "ORDER BY ingreso.id ASC";                                
         
         // Los simbolos de interrogacion son para mandar parametros 
         // a la consulta al momento de ejecutalas
@@ -273,6 +265,7 @@ public class Ingreso {
         }
         return ingresos;
     }
+    
     
     public DefaultTableModel getIngresosRangoFecha(String fecha1, String fecha2) {
         // Tabla para mostrar lo obtenido de la consulta

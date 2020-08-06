@@ -64,7 +64,8 @@ public class NReporte {
     }
     
     public void reporteVentasRangoFechas(String fecha1, String fecha2) throws IOException {        
-        String html = Utils.dibujarTablaHTMLForPDF(venta.getVentasRangoFecha(fecha1, fecha2), 
+        String html = Utils.dibujarTablaHTMLForPDF(
+                venta.getVentasRangoFecha(Utils.ddMMyyyyToyyyyMMddDate(fecha1), Utils.ddMMyyyyToyyyyMMddDate(fecha2)),
                 "LISTADO DE VENTAS");                
         generarPDF(html);               
     }
@@ -75,7 +76,8 @@ public class NReporte {
     }
     
     public void reporteIngresosRangoFechas(String fecha1, String fecha2) throws IOException {        
-        String html = Utils.dibujarTablaHTMLForPDF(ingreso.getIngresosRangoFecha(fecha1, fecha2), 
+        String html = Utils.dibujarTablaHTMLForPDF(
+                ingreso.getIngresosRangoFecha(Utils.ddMMyyyyToyyyyMMddDate(fecha1), Utils.ddMMyyyyToyyyyMMddDate(fecha2)), 
                 "LISTADO DE INGRESOS");                
         generarPDF(html);               
     }

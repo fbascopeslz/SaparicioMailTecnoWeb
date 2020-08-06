@@ -44,14 +44,11 @@ public class DetalleIngreso {
         // Abro y obtengo la conexion
         this.conexion.abrirConexion();
         Connection con = this.conexion.getConexion();
-        
-        
+                
         //Procesar la cadena para los DetallesVenta
-        this.procesarDetalleIngreso(detalleIngreso);
-        
+        this.procesarDetalleIngreso(detalleIngreso);        
 
-        try {
-                             
+        try {                             
             // Preparo la consulta
             String sql = "INSERT INTO detalleingreso(\n"
                     + "cantidad, precioCompra, idIngreso, idProducto) VALUES\n";
@@ -83,8 +80,7 @@ public class DetalleIngreso {
                 c++;
                 ps.setInt(c, this.listaDetIng.get(i).idProducto);
                 c++;
-            }     
-            
+            }                 
             
             int rows = ps.executeUpdate();
 

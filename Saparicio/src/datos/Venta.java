@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
+import utils.Utils;
 
 /**
  *
@@ -79,19 +80,9 @@ public class Venta {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // El segundo parametro de usa cuando se tienen tablas que generan llaves primarias
             // es bueno cuando nuestra bd tiene las primarias autoincrementables
-            
-            //fecha y hora actual
-            Calendar fecha = Calendar.getInstance();
-            String dia = Integer.toString(fecha.get(Calendar.DATE));
-            String mes = Integer.toString(fecha.get(Calendar.MONTH) + 1);
-            String annio = Integer.toString(fecha.get(Calendar.YEAR));
-            
-            String hora = Integer.toString(fecha.get(Calendar.HOUR));
-            String minuto = Integer.toString(fecha.get(Calendar.MINUTE));
-            String segundo = Integer.toString(fecha.get(Calendar.SECOND));            
-            
-            ps.setDate(1, Date.valueOf(annio + "-" + mes + "-" + dia));                        
-            ps.setTime(2, Time.valueOf(hora + ":" + minuto + ":" + segundo));
+                                                           
+            ps.setDate(1, Date.valueOf(Utils.fechaActual()));                        
+            ps.setTime(2, Time.valueOf(Utils.horaActual()));
             
             ps.setFloat(3, this.total);
             ps.setString(4, this.estado);
@@ -231,7 +222,8 @@ public class Venta {
                 + "CONCAT(TRIM(usuario.usuario)) AS usuario\n"
                 + "FROM venta, cliente, usuario\n"
                 + "WHERE venta.idcliente = cliente.id and "
-                + "venta.idusuario = usuario.id";                
+                + "venta.idusuario = usuario.id\n"
+                + "ORDER BY venta.id ASC";                
         
         // Los simbolos de interrogacion son para mandar parametros 
         // a la consulta al momento de ejecutalas
@@ -263,6 +255,7 @@ public class Venta {
         }
         return ventas;
     }
+    
     
     public DefaultTableModel getVentasRangoFecha(String fecha1, String fecha2) {
         // Tabla para mostrar lo obtenido de la consulta
@@ -368,6 +361,7 @@ public class Venta {
         }
         return estadistica;
     }
+    
     
     public DefaultTableModel estadisticaFinancierasIngresosGastosUtilidades(String anio) {
         // Tabla para mostrar lo obtenido de la consulta

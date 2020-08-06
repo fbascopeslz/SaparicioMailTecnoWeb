@@ -5,9 +5,17 @@
  */
 package utils;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+//import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
@@ -159,11 +167,10 @@ public class Utils {
                 + "</html> ";
 
         return tableString;
-    }
-    
+    }    
     
     //
-    public static String dibujarTablawithHTMLwithoutOpcionesVenta(DefaultTableModel tablaVenta, DefaultTableModel tablaDetalles) {
+    public static String dibujarTablawithHTMLVenta(DefaultTableModel tablaVenta, DefaultTableModel tablaDetalles) {
         String tableString = "";
         tableString += "<!DOCTYPE html>\n"
                 + "<html>\n"
@@ -257,10 +264,9 @@ public class Utils {
 
         return tableString;
     }
-    
-    
+        
     //
-    public static String dibujarTablawithHTMLwithoutOpcionesIngreso(DefaultTableModel tablaIngreso, DefaultTableModel tablaDetalles) {
+    public static String dibujarTablawithHTMLIngreso(DefaultTableModel tablaIngreso, DefaultTableModel tablaDetalles) {
         String tableString = "";
         tableString += "<!DOCTYPE html>\n"
                 + "<html>\n"
@@ -354,8 +360,7 @@ public class Utils {
 
         return tableString;
     }
-    
-    
+        
     //
     public static String dibujarTablaHTMLForPDF(DefaultTableModel tabla, String titulo) {
         //fecha actual
@@ -679,7 +684,36 @@ public class Utils {
 
         return tableString;
     }
-          
+      
+    
+    //
+    public static String md5(String input) 
+    { 
+        try {   
+            // Static getInstance method is called with hashing MD5 
+            MessageDigest md = MessageDigest.getInstance("MD5"); 
+  
+            // digest() method is called to calculate message digest 
+            //  of an input digest() return array of byte 
+            byte[] messageDigest = md.digest(input.getBytes()); 
+  
+            // Convert byte array into signum representation 
+            BigInteger no = new BigInteger(1, messageDigest); 
+  
+            // Convert message digest into hex value 
+            String hashtext = no.toString(16); 
+            while (hashtext.length() < 32) { 
+                hashtext = "0" + hashtext; 
+            } 
+            return hashtext; 
+        }  
+  
+        // For specifying wrong message digest algorithms 
+        catch (NoSuchAlgorithmException e) { 
+            throw new RuntimeException(e); 
+        } 
+    } 
+    
     //
     public static String mesToNombreMes(int mes){
         switch(mes) {
@@ -711,5 +745,54 @@ public class Utils {
                 return "Mes";                
         }
     }
+    
+    //
+    public static String fechaActual(){
+        String fechaActual = "";
+        try {
+            //fecha actual
+            Calendar calendario = Calendar.getInstance();
+            String dia = Integer.toString(calendario.get(Calendar.DATE));
+            String mes = Integer.toString(calendario.get(Calendar.MONTH) + 1); //los meses empiezan en 0..11
+            String annio = Integer.toString(calendario.get(Calendar.YEAR));
+            fechaActual += annio + "-" + mes + "-" + dia;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fechaActual;
+    }
+        
+    //
+    public static String horaActual(){
+        String horaActual = "";
+        try {
+            //hora actual
+            Calendar calendario = Calendar.getInstance();
+            String hora = Integer.toString(calendario.get(Calendar.HOUR));
+            String minuto = Integer.toString(calendario.get(Calendar.MINUTE));
+            String segundo = Integer.toString(calendario.get(Calendar.SECOND));
+            horaActual += hora + ":" + minuto + ":" + segundo;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return horaActual;
+    }
+    
+    //dd-MM-yyyy to yyyy-MM-dd
+    public static String ddMMyyyyToyyyyMMddDate(String fecha) {   
+        String fechaFormateada = "";       
+        try {            
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            java.util.Date date = formatter.parse(fecha);                                  
+            fechaFormateada  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            //System.out.println(format);                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }                      
+                    
+        return fechaFormateada;
+    }
+            
+    
     
 }

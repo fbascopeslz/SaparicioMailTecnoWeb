@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
+import static utils.Utils.fechaActual;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Cliente {
     String paterno;
     String materno;
     Date fechaNac;
-    String telefono;
+    int telefono;
     String email;
     String direccion;
     
@@ -47,81 +48,9 @@ public class Cliente {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCi() {
-        return ci;
-    }
-
-    public void setCi(String ci) {
-        this.ci = ci;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getPaterno() {
-        return paterno;
-    }
-
-    public void setPaterno(String paterno) {
-        this.paterno = paterno;
-    }
-
-    public String getMaterno() {
-        return materno;
-    }
-
-    public void setMaterno(String materno) {
-        this.materno = materno;
-    }
-
-    public Date getFechaNac() {
-        return fechaNac;
-    }
-
-    public void setFechaNac(Date fechaNac) {
-        this.fechaNac = fechaNac;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }    
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
+    }   
    
+    
     public Conexion getConexion() {
         return conexion;
     }
@@ -132,17 +61,18 @@ public class Cliente {
         
     
     public void setCliente(String ci, String nombres, String paterno, 
-            String materno, String fechaNac, String telefono,
-            String email, String direccion, String estado) throws ParseException {        
+            String materno, Date fechaNac, int telefono,
+            String email, String direccion, boolean estado) {    
+        
         this.ci = ci;
         this.nombres = nombres;
         this.paterno = paterno;
         this.materno = materno;
-        this.fechaNac = Date.valueOf(fechaNac);
+        this.fechaNac = fechaNac;
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;      
-        this.estado = Boolean.parseBoolean(estado);
+        this.estado = estado;
     }
     
     
@@ -153,8 +83,8 @@ public class Cliente {
 
         // Preparo la consulta
         String sql = "INSERT INTO cliente(\n"
-                + "ci , nombres, paterno, materno, fechaNac, telefono, email, direccion, fechaUnion)\n"                
-                + "VALUES(?, ?, ?, ? ,?, ?, ?, ?)";             
+                + "ci, nombres, paterno, materno, fechaNac, telefono, email, direccion, fechaUnion)\n"                
+                + "VALUES(?, ?, ?, ? ,?, ?, ?, ?, ?)";             
 
         try {
             // La ejecuto
@@ -166,17 +96,11 @@ public class Cliente {
             ps.setString(3, this.paterno);
             ps.setString(4, this.materno);
             ps.setDate(5, this.fechaNac);
-            ps.setString(6, this.telefono);
+            ps.setInt(6, this.telefono);
             ps.setString(7, this.email);
             ps.setString(8, this.direccion);
             
-            //fecha actual
-            Calendar fecha = Calendar.getInstance();
-            String dia = Integer.toString(fecha.get(Calendar.DATE));
-            String mes = Integer.toString(fecha.get(Calendar.MONTH));
-            String annio = Integer.toString(fecha.get(Calendar.YEAR));
-            
-            ps.setString(9, annio + "/" + mes + "/" + dia);
+            ps.setDate(9, Date.valueOf(fechaActual()));            
             
             
             int rows = ps.executeUpdate();
@@ -243,10 +167,11 @@ public class Cliente {
             ps.setString(3, this.paterno);
             ps.setString(4, this.materno);
             ps.setDate(5, this.fechaNac);
-            ps.setString(6, this.telefono);
+            ps.setInt(6, this.telefono);
             ps.setString(7, this.email);
             ps.setString(8, this.direccion);            
             ps.setBoolean(9, this.estado);
+            ps.setInt(10, this.id);
             
             int rows = ps.executeUpdate();
 
@@ -266,7 +191,7 @@ public class Cliente {
         String sql = "SELECT\n"
                 + "cliente.id\n"               
                 + "FROM cliente\n"                
-                + "WHERE cliente.id=?";
+                + "WHERE cliente.id = ? ";
         // Los simbolos de interrogacion son para mandar parametros 
         // a la consulta al momento de ejecutalas
         boolean sw = false;
@@ -298,7 +223,7 @@ public class Cliente {
         DefaultTableModel cliente = new DefaultTableModel();
         cliente.setColumnIdentifiers(new Object[]{
             "id", "ci", "nombres", "paterno", "materno", "fechaNac", "telefono",
-            "email", "direccion", "estado"
+            "email", "direccion", "fechaUnion", "estado"
         });
 
         // Abro y obtengo la conexion
@@ -316,9 +241,10 @@ public class Cliente {
                 + "cliente.telefono,\n"
                 + "cliente.email,\n"
                 + "cliente.direccion,\n"
+                + "cliente.fechaUnion,\n"
                 + "cliente.estado\n"
                 + "FROM cliente\n"
-                + "WHERE cliente.id=?";
+                + "WHERE cliente.id = ? ";
         // Los simbolos de interrogacion son para mandar parametros 
         // a la consulta al momento de ejecutalas
 
@@ -344,6 +270,7 @@ public class Cliente {
                     rs.getString("telefono"),
                     rs.getString("email"),
                     rs.getString("direccion"),
+                    rs.getString("fechaUnion"),
                     rs.getBoolean("estado")
                 });
             }
@@ -358,7 +285,7 @@ public class Cliente {
         DefaultTableModel clientes = new DefaultTableModel();
         clientes.setColumnIdentifiers(new Object[]{
             "id", "ci", "nombres", "paterno", "materno", "fechaNac", "telefono",
-            "email", "direccion", "estado"
+            "email", "direccion", "fechaUnion", "estado"
         });
 
         // Abro y obtengo la conexion
@@ -376,6 +303,7 @@ public class Cliente {
                 + "cliente.telefono,\n"
                 + "cliente.email,\n"
                 + "cliente.direccion,\n"
+                + "cliente.fechaUnion,\n"
                 + "cliente.estado\n"
                 + "FROM cliente";                
         
@@ -403,6 +331,7 @@ public class Cliente {
                     rs.getString("telefono"),
                     rs.getString("email"),
                     rs.getString("direccion"),
+                    rs.getString("fechaUnion"),
                     rs.getBoolean("estado")
                 });
             }
@@ -411,7 +340,8 @@ public class Cliente {
         }
         return clientes;
     }
-                
+    
+    
     public DefaultTableModel estadisticaClientesFieles() {
         // Tabla para mostrar lo obtenido de la consulta
         DefaultTableModel clientes = new DefaultTableModel();

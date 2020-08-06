@@ -12,8 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +26,7 @@ public class Usuario {
     String paterno;
     String materno;
     Date fechaNac;
-    String telefono;
+    int telefono;
     String email;
     String direccion;
     String usuario;
@@ -41,111 +39,16 @@ public class Usuario {
     
     public Usuario() {
         this.conexion = Conexion.getInstancia();
-    }
-
+    }    
+    
+    
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCi() {
-        return ci;
-    }
-
-    public void setCi(String ci) {
-        this.ci = ci;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getPaterno() {
-        return paterno;
-    }
-
-    public void setPaterno(String paterno) {
-        this.paterno = paterno;
-    }
-
-    public String getMaterno() {
-        return materno;
-    }
-
-    public void setMaterno(String materno) {
-        this.materno = materno;
-    }
-
-    public Date getFechaNac() {
-        return fechaNac;
-    }
-
-    public void setFechaNac(Date fechaNac) {
-        this.fechaNac = fechaNac;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public int getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
+    }    
     
 
     public Conexion getConexion() {
@@ -158,14 +61,15 @@ public class Usuario {
         
     
     public void setUsuario(String ci, String nombres, String paterno, 
-            String materno, String fechaNac, String telefono,
+            String materno, Date fechaNac, int telefono,
             String email, String direccion, String usuario,
-            String password, String estado, int idRol) throws ParseException {        
+            String password, String estado, int idRol) {
+        
         this.ci = ci;
         this.nombres = nombres;
         this.paterno = paterno;
         this.materno = materno;
-        this.fechaNac = Date.valueOf(fechaNac);
+        this.fechaNac = fechaNac;
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
@@ -183,8 +87,8 @@ public class Usuario {
 
         // Preparo la consulta
         String sql = "INSERT INTO usuario(\n"
-                + "ci, , nombres, paterno, materno, fechaNac, telefono, email, direccion, usuario, password, idRol)\n"
-                + "VALUES(?, ?, ?, ? ,?, ?, ?, ?, ? ,?, ?)";             
+                + "ci, nombres, paterno, materno, fechaNac, telefono, email, direccion, usuario, password, idRol)\n"
+                + "VALUES(?, ?, ?, ? ,?, ?, ?, ?, ? , ?, ?)";             
 
         try {
             // La ejecuto
@@ -196,13 +100,12 @@ public class Usuario {
             ps.setString(3, this.paterno);
             ps.setString(4, this.materno);
             ps.setDate(5, this.fechaNac);
-            ps.setString(6, this.telefono);
+            ps.setInt(6, this.telefono);
             ps.setString(7, this.email);
             ps.setString(8, this.direccion);
             ps.setString(9, this.usuario);
             ps.setString(10, this.password);
-            ps.setInt(11, this.idRol);
-            
+            ps.setInt(11, this.idRol);            
             
             int rows = ps.executeUpdate();
 
@@ -271,13 +174,14 @@ public class Usuario {
             ps.setString(3, this.paterno);
             ps.setString(4, this.materno);
             ps.setDate(5, this.fechaNac);
-            ps.setString(6, this.telefono);
+            ps.setInt(6, this.telefono);
             ps.setString(7, this.email);
             ps.setString(8, this.direccion);
             ps.setString(9, this.usuario);
             ps.setString(10, this.password);            
             ps.setBoolean(11, this.estado);
             ps.setInt(12, this.idRol);
+            ps.setInt(13, this.id);
             
             int rows = ps.executeUpdate();
 

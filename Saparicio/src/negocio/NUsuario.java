@@ -6,8 +6,10 @@
 package negocio;
 
 import datos.Usuario;
-import java.text.ParseException;
+import java.sql.Date;
 import javax.swing.table.DefaultTableModel;
+import static utils.Utils.md5;
+import java.sql.Date;
 
 /**
  *
@@ -23,18 +25,43 @@ public class NUsuario {
 
     public int registrarUsuario(String ci, String nombres, String paterno, 
             String materno, String fechaNac, String telefono, String email,
-            String direccion, String usuario, String password, int idRol) throws ParseException {        
-        this.usuario.setUsuario(ci, nombres, paterno, materno, fechaNac, 
-                telefono,  email, direccion,  usuario,  password, "true", idRol);
+            String direccion, String usuario, String password, int idRol) {
+        
+        this.usuario.setUsuario(ci, 
+                                nombres, 
+                                paterno, 
+                                materno, 
+                                Date.valueOf(fechaNac), 
+                                Integer.parseInt(telefono),  
+                                email, 
+                                direccion,  
+                                usuario,  
+                                md5(password), 
+                                "true", 
+                                idRol);
+        
         return this.usuario.registrarUsuario();
     }
 
     public void modificarUsuario(int id, String ci, String nombres, String paterno, 
             String materno, String fechaNac, String telefono, String email,
-            String direccion, String usuario, String password, String estado, int idRol) throws ParseException {
+            String direccion, String usuario, String password, String estado, int idRol) {
+        
         this.usuario.setId(id);
-        this.usuario.setUsuario(ci, nombres, paterno, materno, fechaNac, 
-                telefono,  email, direccion,  usuario,  password, estado, idRol);
+        
+        this.usuario.setUsuario(ci, 
+                                nombres, 
+                                paterno, 
+                                materno, 
+                                Date.valueOf(fechaNac), 
+                                Integer.parseInt(telefono),  
+                                email, 
+                                direccion,  
+                                usuario,  
+                                password, 
+                                estado, 
+                                idRol);
+        
         this.usuario.modificarUsuario();
     }
 
