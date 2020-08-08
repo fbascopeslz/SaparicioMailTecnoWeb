@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
+import utils.ComandosAyuda;
 
 /**
  *
@@ -427,11 +428,14 @@ public class Producto {
     
     public static void main(String[] args) {
         // TODO code application logic here
+        /*
         Producto g = new Producto();
         
         DefaultTableModel dtm = g.estadisticaTopProductosMasVendidos();
         System.out.println("");
+        */
         
+        System.out.println(ComandosAyuda.AYUDA_GENERAL);
     }
     
 }

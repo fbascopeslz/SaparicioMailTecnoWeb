@@ -282,6 +282,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Registrar Producto", 
                     Constante.IngresoErrorR + "\n" + "Mensaje enviado: " + analex.M.texto);
+            
+            e.printStackTrace();
 
         }
     }
@@ -356,12 +358,17 @@ public class Saparicio {
                 mimeMail mimemailer = new mimeMail();
                 mimemailer.sendHtmlEmail(correoDest, "Modificar Producto", Constante.IngresoPositivoM + "\n\n" + Utils.dibujarTablawithHTMLwithoutOpciones(producto.mostrarProductos()));
             } catch (Exception e) {
-                ClienteSMTP.sendMail(correoDest, "Modificar Producto", Constante.IngresoErrorM + "\n" + "Mensaje enviado: " + analex.M.texto);
+                ClienteSMTP.sendMail(correoDest, "Modificar Producto", 
+                        Constante.IngresoErrorM + "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
 
         } else {
             String msg = ComandosAyuda.AYUDA_MODIFICARPRODUCTO;
-            ClienteSMTP.sendMail(correoDest, Constante.AsuntoError, "El Producto no se encuentra registrado!\n\n" + "Mensaje enviado: " + analex.M.texto + msg);
+            ClienteSMTP.sendMail(correoDest, Constante.AsuntoError, 
+                    "El Producto no se encuentra registrado!\n\n" + "Mensaje enviado: " + analex.M.texto + msg);
+                                          
         }
 
     }
@@ -396,7 +403,11 @@ public class Saparicio {
                 ClienteSMTP.sendMail(correoDest, Constante.AsuntoError, Constante.NoExisteProducto + "\n" + "Mensaje enviado: " + analex.M.texto);
             }
         } catch (Exception e) {
-            ClienteSMTP.sendMail(correoDest, "Eliminar Producto", Constante.IngresoErrorE + "\n" + "Mensaje enviado: " + analex.M.texto);
+            ClienteSMTP.sendMail(correoDest, "Eliminar Producto", 
+                    Constante.IngresoErrorE + "\n" + "Mensaje enviado: " + analex.M.texto);
+            
+            e.printStackTrace();
+            
         }
 
     }
@@ -429,11 +440,16 @@ public class Saparicio {
             try {
                 mailer.sendHtmlEmail(destinatario, "Obtener datos", "<h1>Obtener Producto</h1> \n\n" + mensaje);
             } catch (Exception e) {
-                ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Producto" + "\n" + "Mensaje enviado: " + analex.M.texto);
+                ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, 
+                        "No se pudo obtener el Producto" + "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
+                
             }
             // ClienteSMTP.sendMail(destinatario, "Obtener Cliente\n\n", mensaje);          
         } else {
-            ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Producto" + "\n" + "Mensaje enviado: " + analex.M.texto);
+            ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, 
+                    "No se pudo obtener el Producto" + "\n" + "Mensaje enviado: " + analex.M.texto);            
         }
 
     }
@@ -460,8 +476,10 @@ public class Saparicio {
                     "Lista de Productos\n" + 
                             Utils.dibujarTablawithHTMLwithoutOpciones(producto.mostrarProductos()));
         } catch (Exception e) {
-            ClienteSMTP.sendMail(correoDest, "Mostrar Productos", "error durante la obtencion de la tabla, verifique con el comando HELP");
-
+            ClienteSMTP.sendMail(correoDest, "Mostrar Productos", 
+                    "error durante la obtencion de la tabla, verifique con el comando HELP");
+            
+            e.printStackTrace();
         }
     }
     
@@ -515,7 +533,10 @@ public class Saparicio {
             mimemailer.sendHtmlEmail(correoDest, "Registrar Proveedor", Constante.IngresoPositivoR + "\n\n" + Utils.dibujarTablawithHTMLwithoutOpciones(proveedor.mostrarProveedores()));
 
         } catch (Exception e) {
-            ClienteSMTP.sendMail(correoDest, "Registrar Proveedor", Constante.IngresoErrorR + "\n" + "Mensaje enviado: " + analex.M.texto);
+            ClienteSMTP.sendMail(correoDest, "Registrar Proveedor", 
+                    Constante.IngresoErrorR + "\n" + "Mensaje enviado: " + analex.M.texto);
+            
+            e.printStackTrace();
 
         }
     }
@@ -603,7 +624,10 @@ public class Saparicio {
                 mimeMail mimemailer = new mimeMail();
                 mimemailer.sendHtmlEmail(correoDest, "Modificar Proveedor", Constante.IngresoPositivoM + "\n\n" + Utils.dibujarTablawithHTMLwithoutOpciones(proveedor.mostrarProveedores()));
             } catch (Exception e) {
-                ClienteSMTP.sendMail(correoDest, "Modificar Proveedor", Constante.IngresoErrorM + "\n" + "Mensaje enviado: " + analex.M.texto);
+                ClienteSMTP.sendMail(correoDest, "Modificar Proveedor", 
+                        Constante.IngresoErrorM + "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
 
         } else {
@@ -643,7 +667,10 @@ public class Saparicio {
                 ClienteSMTP.sendMail(correoDest, Constante.AsuntoError, Constante.NoExisteProveedor + "\n" + "Mensaje enviado: " + analex.M.texto);
             }
         } catch (Exception e) {
-            ClienteSMTP.sendMail(correoDest, "Eliminar Proveedor", Constante.IngresoErrorE + "\n" + "Mensaje enviado: " + analex.M.texto);
+            ClienteSMTP.sendMail(correoDest, "Eliminar Proveedor", 
+                    Constante.IngresoErrorE + "\n" + "Mensaje enviado: " + analex.M.texto);
+            
+            e.printStackTrace();
         }
 
     }
@@ -676,11 +703,15 @@ public class Saparicio {
             try {
                 mailer.sendHtmlEmail(destinatario, "Obtener datos", "<h1>Obtener Proveedor</h1> \n\n" + mensaje);
             } catch (Exception e) {
-                ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Proveedor" + "\n" + "Mensaje enviado: " + analex.M.texto);
+                ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, 
+                        "No se pudo obtener el Proveedor" + "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
             // ClienteSMTP.sendMail(destinatario, "Obtener Cliente\n\n", mensaje);          
         } else {
-            ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Proveedor" + "\n" + "Mensaje enviado: " + analex.M.texto);
+            ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, 
+                    "No se pudo obtener el Proveedor" + "\n" + "Mensaje enviado: " + analex.M.texto);                        
         }
 
     }
@@ -705,7 +736,10 @@ public class Saparicio {
             mimeMail mimemailer = new mimeMail();
             mimemailer.sendHtmlEmail(correoDest, "Mostrar Proveedores", "Lista de Proveedores\n" + Utils.dibujarTablawithHTMLwithoutOpciones(proveedor.mostrarProveedores()));
         } catch (Exception e) {
-            ClienteSMTP.sendMail(correoDest, "Mostrar Proveedores", "error durante la obtencion de la tabla, verifique con el comando HELP");
+            ClienteSMTP.sendMail(correoDest, "Mostrar Proveedores", 
+                    "error durante la obtencion de la tabla, verifique con el comando HELP");
+            
+            e.printStackTrace();
 
         }
     }
@@ -785,8 +819,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Registrar Proveedor", Constante.IngresoErrorR + 
                     "\n" + "Mensaje enviado: " + analex.M.texto);
-            e.printStackTrace();
             
+            e.printStackTrace();            
         }
     }
 
@@ -913,6 +947,8 @@ public class Saparicio {
             } catch (Exception e) {
                 ClienteSMTP.sendMail(correoDest, "Modificar Usuario", Constante.IngresoErrorM + 
                         "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
 
         } else {
@@ -957,6 +993,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Eliminar Usuario", Constante.IngresoErrorE + 
                     "\n" + "Mensaje enviado: " + analex.M.texto);
+            
+            e.printStackTrace();
         }
 
     }
@@ -992,6 +1030,8 @@ public class Saparicio {
             } catch (Exception e) {
                 ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Usuario" + 
                         "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
             // ClienteSMTP.sendMail(destinatario, "Obtener Cliente\n\n", mensaje);          
         } else {
@@ -1025,7 +1065,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Mostrar Usuarios", 
                     "error durante la obtencion de la tabla, verifique con el comando HELP");
-
+            
+            e.printStackTrace();
         }
     }
     
@@ -1093,8 +1134,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Registrar Cliente", Constante.IngresoErrorR + 
                     "\n" + "Mensaje enviado: " + analex.M.texto);
-            e.printStackTrace();
             
+            e.printStackTrace();            
         }
     }
 
@@ -1201,6 +1242,8 @@ public class Saparicio {
             } catch (Exception e) {
                 ClienteSMTP.sendMail(correoDest, "Modificar Cliente", Constante.IngresoErrorM + 
                         "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
 
         } else {
@@ -1246,6 +1289,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Eliminar Cliente", Constante.IngresoErrorE + 
                     "\n" + "Mensaje enviado: " + analex.M.texto);
+            
+            e.printStackTrace();
         }
 
     }
@@ -1281,6 +1326,8 @@ public class Saparicio {
             } catch (Exception e) {
                 ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Cliente" + 
                         "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
             // ClienteSMTP.sendMail(destinatario, "Obtener Cliente\n\n", mensaje);          
         } else {
@@ -1314,7 +1361,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Mostrar Clientes", 
                     "error durante la obtencion de la tabla, verifique con el comando HELP");
-
+            
+            e.printStackTrace();
         }
     }
     
@@ -1376,6 +1424,7 @@ public class Saparicio {
             ClienteSMTP.sendMail(correoDest, "Registrar Venta", Constante.IngresoErrorR + 
                     "\n" + "Mensaje enviado: " + analex.M.texto);
             
+            e.printStackTrace();            
         }
     }
     
@@ -1414,6 +1463,8 @@ public class Saparicio {
             } catch (Exception e) {
                 ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener la Venta" + 
                         "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
             // ClienteSMTP.sendMail(destinatario, "Obtener Cliente\n\n", mensaje);          
         } else {
@@ -1447,7 +1498,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Mostrar Ventas", 
                     "error durante la obtencion de la tabla, verifique con el comando HELP");
-
+            
+            e.printStackTrace();
         }
     }
     
@@ -1515,6 +1567,7 @@ public class Saparicio {
             ClienteSMTP.sendMail(correoDest, "Registrar Ingreso", Constante.IngresoErrorR + 
                     "\n" + "Mensaje enviado: " + analex.M.texto);
             
+            e.printStackTrace();            
         }
     }
     
@@ -1555,6 +1608,8 @@ public class Saparicio {
             } catch (Exception e) {
                 ClienteSMTP.sendMail(destinatario, Constante.AsuntoError, "No se pudo obtener el Ingreso" + 
                         "\n" + "Mensaje enviado: " + analex.M.texto);
+                
+                e.printStackTrace();
             }
             // ClienteSMTP.sendMail(destinatario, "Obtener Cliente\n\n", mensaje);          
         } else {
@@ -1588,7 +1643,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Mostrar Ingresos", 
                     "error durante la obtencion de la tabla, verifique con el comando HELP");
-
+            
+            e.printStackTrace();
         }
     }
     
@@ -1621,6 +1677,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Reporte Productos", 
                     "Error durante la obtencion del PDF, porfavor vuelva a intentarlo");
+            
+            e.printStackTrace();
         }
     }
     
@@ -1663,6 +1721,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Reporte Ventas", 
                     "Error durante la obtencion del PDF, porfavor vuelva a intentarlo");
+            
+            e.printStackTrace();
         }
     }
     
@@ -1705,6 +1765,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Reporte Ingresos", 
                     "Error durante la obtencion del PDF, porfavor vuelva a intentarlo");
+            
+            e.printStackTrace();
         }
     }
     
@@ -1764,6 +1826,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Reporte Productos", 
                     "Error durante la obtencion de la Grafica, verifique con el comando HELP");
+            
+            e.printStackTrace();
         }
     }
     
@@ -1793,6 +1857,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Estadisticas Clientes Mas Fieles",
                     "Error durante la obtencion de la Grafica, porfavor vuelva a intentarlo");
+            
+            e.printStackTrace();
         }
     }
     
@@ -1822,6 +1888,8 @@ public class Saparicio {
         } catch (Exception e) {
             ClienteSMTP.sendMail(correoDest, "Estadisticas Proveedores Mas Solicitados",
                     "Error durante la obtencion de la Grafica, porfavor vuelva a intentarlo");
+            
+            e.printStackTrace();
         }
     }
     
@@ -1850,10 +1918,11 @@ public class Saparicio {
             
             mimeMail mimemailer = new mimeMail();
             mimemailer.sendHtmlEmail(correoDest, "Estadisticas Financieras", html);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {            
             ClienteSMTP.sendMail(correoDest, "Estadisticas Financieras",
                     "Error durante la obtencion de la Grafica, porfavor vuelva a intentarlo");
+            
+            e.printStackTrace();
         }
     }
     
